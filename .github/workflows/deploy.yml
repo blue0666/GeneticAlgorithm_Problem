@@ -1,5 +1,11 @@
 name: 发布到 GitHub Pages
 
+# 说明：本 workflow 会把 npm run build 的结果推到 gh-pages 分支。
+# GitHub 网页上 Settings → Pages 请选择：
+#   Source = Deploy from a branch
+#   Branch = gh-pages，Folder = / (root)
+# Settings → Actions → Workflow permissions 请选择 Read and write permissions
+
 on:
   push:
     branches: [master, main]

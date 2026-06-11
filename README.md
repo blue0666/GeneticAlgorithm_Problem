@@ -1,6 +1,6 @@
 # 遗传算法求最值实验（Web 版）
 
-基于 **Vite + Vue 3 + TypeScript + Element Plus + ECharts + Plotly.js** 的模块化实验系统，可在浏览器中实时运行遗传算法与粒子群算法，并部署到 GitHub Pages。
+基于 **Vite + Vue 3 + TypeScript + Element Plus + ECharts + Plotly.js** 的模块化实验系统，可在浏览器中运行遗传算法与网格搜索，并部署到 GitHub Pages。
 
 ## 项目结构
 
@@ -26,19 +26,43 @@ npm run dev
 
 浏览器打开终端提示的地址（通常是 http://localhost:5173）。
 
-## 构建与 GitHub Pages 部署
+## GitHub Pages 自动部署
+
+网站地址：`https://blue0666.github.io/GeneticAlgorithm_Problem/`
+
+### 首次在 GitHub 上配置（只需做一次）
+
+1. **Settings → Actions → General → Workflow permissions**  
+   选择 **Read and write permissions**，保存。
+
+2. **Settings → Pages**  
+   - Source：**Deploy from a branch**  
+   - Branch：**gh-pages**  
+   - Folder：**/ (root)**  
+   - 保存  
+
+3. 本地 push 代码后，打开 **Actions**，等待「发布到 GitHub Pages」出现绿色勾。
+
+4. 若仓库里还没有 `gh-pages` 分支，需等 Actions 第一次成功运行后才会自动创建。
+
+### 日常更新
+
+```bash
+git add .
+git commit -m "更新说明"
+git push
+```
+
+push 后 Actions 会自动 `npm run build`，并把结果更新到 `gh-pages` 分支。
+
+### 手动部署（不用 Actions 时）
 
 ```bash
 npm run build
-```
-
-将 `dist/` 目录内容部署到 GitHub Pages。若使用项目页（`https://用户名.github.io/仓库名/`），请在 `vite.config.ts` 中把 `base` 改为 `'/仓库名/'`。
-
-也可使用 gh-pages 分支：
-
-```bash
 npx gh-pages -d dist
 ```
+
+`vite.config.ts` 中 `base` 已设为 `/GeneticAlgorithm_Problem/`。
 
 ## 功能模块
 
