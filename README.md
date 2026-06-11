@@ -37,13 +37,13 @@ npm run dev
 
 2. **Settings → Pages**  
    - Source：**Deploy from a branch**  
-   - Branch：**gh-pages**  
-   - Folder：**/ (root)**  
+   - Branch：**master**  
+   - Folder：**/docs**  
    - 保存  
 
-3. 本地 push 代码后，打开 **Actions**，等待「发布到 GitHub Pages」出现绿色勾。
+3. push 代码后，在 **Actions** 等待「发布到 GitHub Pages」绿色勾。
 
-4. 若仓库里还没有 `gh-pages` 分支，需等 Actions 第一次成功运行后才会自动创建。
+4. Actions 会把打包结果写入 **master 分支的 `docs/` 文件夹**（不是仓库根目录的源码）。
 
 ### 日常更新
 
@@ -53,7 +53,7 @@ git commit -m "更新说明"
 git push
 ```
 
-push 后 Actions 会自动 `npm run build`，并把结果更新到 `gh-pages` 分支。
+push 后 Actions 会自动 `npm run build`，并把结果更新到 **master/docs/**。
 
 ### 手动部署（不用 Actions 时）
 

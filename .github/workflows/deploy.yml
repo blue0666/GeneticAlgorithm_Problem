@@ -1,17 +1,14 @@
 name: 发布到 GitHub Pages
 
-# 说明：本 workflow 会把 npm run build 的结果推到 gh-pages 分支。
-# GitHub 网页上 Settings → Pages 请选择：
-#   Source = Deploy from a branch
-#   Branch = gh-pages，Folder = / (root)
-# Settings → Actions → Workflow permissions 请选择 Read and write permissions
+# 将 npm run build 的结果写入 master 分支的 docs/ 目录。
+# Settings → Pages 请选择：Deploy from a branch → master → /docs
+# Settings → Actions → Workflow permissions → Read and write permissions
 
 on:
   push:
     branches: [master, main]
   workflow_dispatch:
 
-# 需要写权限，才能把打包结果推到 gh-pages 分支
 permissions:
   contents: write
 
@@ -33,9 +30,11 @@ jobs:
           npm ci
           npm run build
 
-      - name: 发布到 gh-pages 分支
+      - name: 发布到 master/docs
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages
+          publish_branch: master
+          destination_dir: docs
+          keep_files: true
