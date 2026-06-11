@@ -7,9 +7,13 @@ import type {
   RunResult,
 } from './types'
 
-/** 每轴均匀划分的网格点数（共 GRID_SIZE × GRID_SIZE 次函数评估） */
+/** 每轴均匀划分的网格点数；总评估次数为 GRID_SEARCH_SIZE²。 */
 export const GRID_SEARCH_SIZE = 200
 
+/**
+ * 均匀网格穷举：在 x、y 边界内按 gridSize×gridSize 取点，
+ * 逐点计算 F(x,y) 并维护历史最优。外层每完成一行触发一次进度回调。
+ */
 export async function runGridSearch(
   objective: ObjectiveFn,
   mode: OptimizeMode,
@@ -32,7 +36,6 @@ export async function runGridSearch(
   const bestYHistory: number[] = []
 
   const start = performance.now()
-  let evaluated = 0
 
   for (let i = 0; i < gridSize; i++) {
     if (signal?.aborted) break
@@ -40,8 +43,7 @@ export async function runGridSearch(
     const rowX: number[] = []
     const rowY: number[] = []
     const rowZ: number[] = []
-    const x =
-      gridSize > 1 ? xMin + i * xStep : xMin
+    const x = gridSize > 1 ? xMin + i * xStep : xMin
 
     for (let j = 0; j < gridSize; j++) {
       const y = gridSize > 1 ? yMin + j * yStep : yMin
@@ -49,7 +51,6 @@ export async function runGridSearch(
       rowX.push(x)
       rowY.push(y)
       rowZ.push(value)
-      evaluated++
 
       if (mode === 'max' ? value > bestValue : value < bestValue) {
         bestValue = value

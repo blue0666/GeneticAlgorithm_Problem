@@ -1,6 +1,6 @@
 import type { Bounds, ObjectiveFn } from './types'
 
-/** 题目一：求最大值（与 ga_max.py 一致） */
+/** 题目一目标函数，在 [0,10]×[0,10] 上求最大值。 */
 export function maxObjective(x: number, y: number): number {
   const num =
     6.452 * (x + 0.125 * y) * Math.pow(Math.cos(x) - Math.cos(2 * y), 2)
@@ -16,7 +16,7 @@ export const MAX_PROBLEM_BOUNDS: { x: Bounds; y: Bounds } = {
 export const MAX_FORMULA =
   'F(x,y) = 6.452(x+0.125y)(cos x - cos 2y)² / (0.8+(x-4.2)²+2(y-7)²) + 3.226y'
 
-/** Word 公式风格展示（KaTeX LaTeX） */
+/** 页面 KaTeX 公式字符串 */
 export const MAX_FORMULA_LATEX =
   String.raw`F(x,y)=\frac{6.452(x+0.125y)\bigl(\cos x-\cos 2y\bigr)^{2}}{0.8+(x-4.2)^{2}+2(y-7)^{2}}+3.226y`
 
