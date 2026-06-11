@@ -45,6 +45,11 @@ npm run dev
 
 4. Actions 会把打包结果写入 **master 分支的 `docs/` 文件夹**（不是仓库根目录的源码）。
 
+### 若 Actions 报错
+
+- `You deploy from master to master`：已改用 JamesIves 部署 action，不再使用 peaceiris。
+- Jekyll 报 `no such file ... /docs`：说明 `docs/` 还没生成，等 Actions 绿勾后再刷新 Pages。
+
 ### 日常更新
 
 ```bash

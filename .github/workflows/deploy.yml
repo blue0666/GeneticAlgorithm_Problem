@@ -1,8 +1,7 @@
 name: 发布到 GitHub Pages
 
-# 将 npm run build 的结果写入 master 分支的 docs/ 目录。
-# Settings → Pages 请选择：Deploy from a branch → master → /docs
-# Settings → Actions → Workflow permissions → Read and write permissions
+# 打包后写入 master 分支的 docs/ 目录（peaceiris 不允许 master→master，故用 JamesIves）
+# Settings → Pages：Deploy from a branch → master → /docs
 
 on:
   push:
@@ -31,10 +30,11 @@ jobs:
           npm run build
 
       - name: 发布到 master/docs
-        uses: peaceiris/actions-gh-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: master
-          destination_dir: docs
-          keep_files: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+          folder: dist
+          target-folder: docs
+          clean: false
+          commit-message: deploy docs for GitHub Pages
